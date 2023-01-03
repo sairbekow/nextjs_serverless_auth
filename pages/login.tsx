@@ -20,10 +20,6 @@ const Login = () => {
     dispatch(input.value)
   }
 
-  const validateInput = (): boolean => {
-    return true
-  }
-
   const resetFields = () => {
     setEmail('')
     setPassword('')
@@ -31,24 +27,22 @@ const Login = () => {
 
   const submitForm = (e: SubmitEvent) => {
     e.preventDefault()
-    if (validateInput()) {
-      setIsLoading(true)
-      onLogin({
-        url: 'login',
-        body: {email, password}
+    setIsLoading(true)
+    onLogin({
+      url: 'login',
+      body: {email, password}
+    })
+      .then((res) => {
+        if (res.statusCode < 300) {
+          alert("You have been successfully logged!")
+          setIsUserLogged(true)
+        } else {
+          alert("Something went wrong please try again")
+          resetFields()
+        }
       })
-        .then((res) => {
-          if (res.statusCode < 300) {
-            alert("You have been successfully logged!")
-            setIsUserLogged(true)
-          } else {
-            alert("Something went wrong please try again")
-            resetFields()
-          }
-        })
-        .catch(e => console.log(e))
-        .finally(() => setIsLoading(false))
-    }
+      .catch(e => console.log(e))
+      .finally(() => setIsLoading(false))
   }
 
   useEffect(() => {
@@ -68,13 +62,15 @@ const Login = () => {
             onChange={(e) => onChangeField(e, setEmail)}
             className={`${styles.input} ${styles['input--email']}`}
             type="email"
-            placeholder="Email *"/>
+            placeholder="Email *"
+            required/>
           <input
             value={password}
             onChange={(e) => onChangeField(e, setPassword)}
             className={`${styles.input} ${styles['input--password']}`}
             type="password"
-            placeholder="Password *"/>
+            placeholder="Password *"
+            required/>
           <Link
             className={styles.link}
             href="/signup">

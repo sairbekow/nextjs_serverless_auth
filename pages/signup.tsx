@@ -26,15 +26,13 @@ const Signup = () => {
     setPassword('')
   }
 
-  const validateInput = (): boolean => {
-    return true
-  }
-
   const submitForm = (e: SubmitEvent) => {
     e.preventDefault()
-    if (validateInput()) {
-      setIsLoading(true)
+    if(password.length < 8) {
+      alert("Your password length should equal 8 or more")
+      return
     }
+    setIsLoading(true)
     onSignup({
       url: 'signup',
       body: {name, email, password}
@@ -68,13 +66,15 @@ const Signup = () => {
             onChange={(e) => onChangeField(e, setName)}
             className={`${styles.input} ${styles['input--name']}`}
             type="text"
-            placeholder="Name *"/>
+            placeholder="Name *"
+            required/>
           <input
             value={email}
             onChange={(e) => onChangeField(e, setEmail)}
             className={`${styles.input} ${styles['input--email']}`}
             type="email"
-            placeholder="Email *"/>
+            placeholder="Email *"
+            required/>
           <input
             value={password}
             onChange={(e) => onChangeField(e, setPassword)}

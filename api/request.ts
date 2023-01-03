@@ -67,7 +67,7 @@ const onRequestPrivateInfo = async ({url}: IRequestPrivateInfo) => {
       },
       body: JSON.stringify({email, name: "Argen"})
     })
-    const data = await response.json()
+    const {data} = await response.json()
 
     return {...data, statusCode: response.status}
   } catch (e) {

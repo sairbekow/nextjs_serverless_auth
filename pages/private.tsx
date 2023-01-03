@@ -2,16 +2,17 @@ import React, {useEffect, useState} from 'react'
 import MainLayout from "../components/MainLayout"
 import {onRequestPrivateInfo} from "../api/request"
 import Loader from "../components/Loader"
+import styles from "../styles/Private.module.scss"
 
 interface IFetchedData {
   name: string,
   email: string
-  // balance: 0
+  balance: number
 }
 
 const PrivateInfo = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [fetchedData, setFetchedData] = useState<IFetchedData>({name: '', email: ''})
+  const [fetchedData, setFetchedData] = useState<IFetchedData>({name: '', email: '', balance: 0})
 
   useEffect(() => {
     onRequestPrivateInfo({url: 'private'})
@@ -26,9 +27,24 @@ const PrivateInfo = () => {
         {isLoading && <Loader/>}
         <div>
           <h4>Personal Info</h4>
-          <p>name: <span>{isLoading ? '...' : fetchedData && fetchedData.name}</span></p>
-          <p>email: <span>{isLoading ? '...' : fetchedData && fetchedData.email}</span></p>
-          <p>balance: <span>{0}</span></p>
+          <p>
+            name:
+            <span className={styles['user-data']}>
+              {isLoading ? '...' : fetchedData.name}
+            </span>
+          </p>
+          <p>
+            email:
+            <span className={styles['user-data']}>
+              {isLoading ? '...' : fetchedData.email}
+            </span>
+          </p>
+          <p>
+            balance:
+            <span className={styles['user-data']}>
+              {isLoading ? 0 : fetchedData.balance}
+            </span>
+          </p>
         </div>
       </>
     </MainLayout>
