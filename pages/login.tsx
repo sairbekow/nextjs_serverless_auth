@@ -25,7 +25,7 @@ const Login = () => {
     setPassword('')
   }
 
-  const submitForm = (e: SubmitEvent) => {
+  const submitForm = (e: any) => {
     e.preventDefault()
     setIsLoading(true)
     onLogin({
@@ -55,7 +55,6 @@ const Login = () => {
     <MainLayout>
       <>
         {isLoading && <Loader/>}
-        {/*@ts-ignore*/}
         <form className={styles.form} onSubmit={submitForm}>
           <input
             value={email}

@@ -26,7 +26,7 @@ const Signup = () => {
     setPassword('')
   }
 
-  const submitForm = (e: SubmitEvent) => {
+  const submitForm = (e: any) => {
     e.preventDefault()
     if(password.length < 8) {
       alert("Your password length should equal 8 or more")
